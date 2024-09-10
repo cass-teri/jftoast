@@ -1,0 +1,74 @@
+{
+    "type": "object",
+    "properties": {
+        "FirstName": {
+            "type": "string"
+        },
+        "LastName": {
+            "type": "string"
+        },
+        "address": {
+            "type": "string"
+        },
+        "City": {
+            "type": "string"
+        },
+        "Province": {
+            "type": "string",
+            "enum": [
+                "Alberta",
+                "British Columbia",
+                "Manitoba",
+                "New Brunswick",
+                "Newfoundland and Labrador",
+                "Nova Scotia",
+                "Northwest Territories",
+                "Nunavut",
+                "Ontario",
+                "Prince Edward Island",
+                "Quebec",
+                "Saskatchewan",
+                "Yukon"
+            ]
+        },
+        "PostalCode": {
+            "type": "string",
+            "pattern": "^[A-Za-z]\\d[A-Za-z][ -]?\\d[A-Za-z]\\d$"
+        },
+        "Country": {
+            "type": "string"
+        },
+        "Phone_Number": {
+            "type": "string",
+            "pattern": "^\\d{3}[ -]?\\d{3}[ -]?\\d{4}$"
+        },
+        "Email": {
+            "type": "string",
+            "pattern": "^.+@.+\\.[a-zA-Z]{2,}$"
+        },
+        "Ministry": {
+            "type": "string",
+            "enum": [
+                "Agriculture and Forestry",
+                "Children's Services",
+                "Community and Social Services",
+                "Culture and Multiculturalism",
+                "Economic Development, Trade and Tourism",
+                "Education",
+                "Energy",
+                "Environment and Parks",
+                "Health",
+                "Indigenous Relations",
+                "Infrastructure",
+                "Justice and Solicitor General",
+                "Labour",
+                "Municipal Affairs",
+                "Seniors and Housing",
+                "Service Alberta",
+                "Transportation",
+                "Treasury Board and Finance"
+            ]
+        }
+    },
+    "required": []
+}

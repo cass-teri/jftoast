@@ -1,0 +1,112 @@
+{
+    "type": "VerticalLayout",
+    "elements": [
+        {
+            "type": "HelpContent",
+            "label": "Header"
+        },
+        {
+            "type": "HelpContent",
+            "elements": [
+                {
+                    "type": "HelpContent",
+                    "label": "SubHeader"
+                }
+            ]
+        },
+        {
+            "type": "HelpContent",
+            "label": "",
+            "options": {
+                "help": "Paragraph Text"
+            }
+        },
+        {
+            "type": "HelpContent",
+            "elementjs": [
+                {
+                    "type": "HelpContent",
+                    "label": "",
+                    "options": {
+                        "help": [
+                            "one",
+                            "two",
+                            "three"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "type": "Group",
+            "elements": [
+                {
+                    "type": "HorizontalLayout",
+                    "elements": [
+                        {
+                            "type": "Control",
+                            "scope": "#/properties/FirstName"
+                        },
+                        {
+                            "type": "Control",
+                            "scope": "#/properties/LastName"
+                        }
+                    ]
+                },
+                {
+                    "type": "Control",
+                    "scope": "#/properties/address"
+                },
+                {
+                    "type": "HorizontalLayout",
+                    "elements": [
+                        {
+                            "type": "Control",
+                            "scope": "#/properties/City"
+                        },
+                        {
+                            "type": "Control",
+                            "scope": "#/properties/Province"
+                        }
+                    ]
+                },
+                {
+                    "type": "HorizontalLayout",
+                    "elements": [
+                        {
+                            "type": "Control",
+                            "scope": "#/properties/PostalCode"
+                        },
+                        {
+                            "type": "Control",
+                            "scope": "#/properties/Country"
+                        }
+                    ]
+                },
+                {
+                    "type": "Group",
+                    "label": "Contact Information",
+                    "elements": [
+                        {
+                            "type": "HorizontalLayout",
+                            "elements": [
+                                {
+                                    "type": "Control",
+                                    "scope": "#/properties/Phone_Number"
+                                },
+                                {
+                                    "type": "Control",
+                                    "scope": "#/properties/Email"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Control",
+                    "scope": "#/properties/Ministry"
+                }
+            ]
+        }
+    ]
+}
