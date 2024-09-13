@@ -5,16 +5,13 @@ mod ui_schema_element;
 mod parse_help;
 mod ast;
 mod schema_package;
-mod categorization;
-mod category;
-mod control;
 mod options;
 mod component_props;
 
+use serde_json::from_str;
+use serde_json::Value;
 use std::fs;
 use std::path::Path;
-use serde_json::Value;
-use serde_json::from_str;
 use ui_schema_element::UiSchemaElement;
 
 fn main() {
@@ -37,7 +34,7 @@ fn parse_node(json_data: &Value) -> UiSchemaElement {
                     "VerticalLayout" | "HorizontalLayout" | "Group" | "Categorization" | "Category" => {
                         let elements = json_data.get("elements");
                         match elements{
-                            None => UiSchemaElement::None,
+                            None => UiSchemaElement::Unknown,
                             Some(elements) => {
                                 match elements {
                                     Value::Array(elements) => {
@@ -46,16 +43,16 @@ fn parse_node(json_data: &Value) -> UiSchemaElement {
                                         }).collect();
 
                                         match s {
-                                            "VerticalLayout" => UiSchemaElement::VerticalLayout{ id: gen_id(), elements: children},
-                                            "HorizontalLayout" => UiSchemaElement::HorizontalLayout(children),
-                                            "Group" => UiSchemaElement::Group(children),
-                                            "Category"=> UiSchemaElement::Category(children),
-                                            "Categorization" => UiSchemaElement::Categorization(children);
-                                            _ => UiSchemaElement::None
+                                            "VerticalLayout" => UiSchemaElement::VerticalLayout{ id: gen_id(), elements: Some(children)},
+                                            "HorizontalLayout" => UiSchemaElement::HorizontalLayout{ id: gen_id(), elements: Some(children)},
+                                            "Group" => UiSchemaElement::Group{ id: gen_id(),  elements:Some(children)},
+                                            "Category"=> UiSchemaElement::Category{ id: gen_id(), label: gen_id(),  elements:Some(children)},
+                                            "Categorization" => UiSchemaElement::Categorization{ id: gen_id(), label: gen_id(), categories: Some(children),  option: None },
+                                            _ => UiSchemaElement::Unknown
 
                                         }
                                     }
-                                    _ => UiSchemaElement::None
+                                    _ => UiSchemaElement::Unknown
                                 }
                             }
                         }
@@ -66,29 +63,28 @@ fn parse_node(json_data: &Value) -> UiSchemaElement {
                             Some(scope) => {
                                 match scope {
                                     Value::String(s) => {
-                                        UiSchemaElement::Control { id: gen_id(), scope: s.to_owned(), options: () }
+                                        UiSchemaElement::Control { id: gen_id(), scope: s.to_owned(), options: Default::default() }
                                     }
-                                    _ => UiSchemaElement::None
+                                    _ => UiSchemaElement::Unknown
                                 }
                             }
                         }
                     }
                     "HelpContent"=>{
                         //UiSchemaElement::HelpContent(HelpContent::Header(s.to_owned()))
-                        let help_content = parse_help::parse_help(json_data);
-                        UiSchemaElement::HelpContent(help_content)
+                        parse_help::parse_help(json_data)
                     }
-                    _ => UiSchemaElement::None
+                    _ => UiSchemaElement::Unknown
                 }
             }
-            _ => UiSchemaElement::None
+            _ => UiSchemaElement::Unknown
         }
     } else {
-        UiSchemaElement::None
+        UiSchemaElement::Unknown
     }
 }
 
 fn gen_id() -> String {
-    "id".to_owned()
+    cuid2::create_id()
 }
 

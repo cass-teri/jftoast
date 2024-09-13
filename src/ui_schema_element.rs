@@ -1,6 +1,4 @@
 use std::collections::HashMap;
-use serde_json::error::Category;
-use crate::help_content::HelpContent;
 use crate::options::Options;
 
 #[derive(Debug)]
@@ -23,17 +21,19 @@ pub enum UiSchemaElement{
         elements: Option<Vec<UiSchemaElement>>
     },
     Categorization {
+        id: String,
         label: String,
-        categories: Option<Vec<Category>>,
+        categories: Option<Vec<UiSchemaElement>>,
         option: Option<HashMap<String, String>>
     },
     Category {
+        id: String,
         label: String,
         elements: Option<Vec<UiSchemaElement>>
     },
     HelpContent{
         id: String,
-        label: String,
+        label: Option<String>,
         options: Option<Options>,
         elements: Option<Vec<UiSchemaElement>>
     },
